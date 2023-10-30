@@ -8,11 +8,11 @@ namespace Catalog.Controllers
     [Route("api/items")]
     public class ItemsController : ControllerBase
     {
-        private readonly InMemItemsRepository ItemsRepository;
+        private readonly IItemsRepository ItemsRepository;
 
-        public ItemsController()
+        public ItemsController(IItemsRepository itemsRepository)
         {
-            ItemsRepository = new InMemItemsRepository();
+            ItemsRepository = itemsRepository;
         }
 
         /// <summary>
@@ -28,12 +28,19 @@ namespace Catalog.Controllers
         /// <summary>
         /// GET api/items/{id}.
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{Id}")]
-        public Item GetItem(Guid Id)
+        [HttpGet("{id}")]
+        public ActionResult<Item> GetItem(Guid id)
         {
-            return ItemsRepository.GetItem(Id);
+            Item ItemToReturn = ItemsRepository.GetItem(id);
+
+            if (ItemToReturn is null)
+            {
+                return NotFound();
+            }
+
+            return ItemsRepository.GetItem(id);
         }
     }
 }

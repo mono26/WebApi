@@ -1,9 +1,8 @@
 using Catalog.Entities;
-using Microsoft.AspNetCore.Http.Features;
 
 namespace Catalog.Repositories
 {
-    public class InMemItemsRepository
+    public class InMemItemsRepository : IItemsRepository
     {
         private readonly List<Item> Items = new()
         {
