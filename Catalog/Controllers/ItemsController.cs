@@ -1,3 +1,4 @@
+using Catalog.Dtos;
 using Catalog.Entities;
 using Catalog.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +21,10 @@ namespace Catalog.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IEnumerable<Item> GetItems()
+        public IEnumerable<ItemDto> GetItems()
         {
-            return ItemsRepository.GetItems();
+            IEnumerable<ItemDto> items = ItemsRepository.GetItems().Select(item => item.AsDto());
+            return items;
         }
 
         /// <summary>
@@ -31,7 +33,7 @@ namespace Catalog.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public ActionResult<Item> GetItem(Guid id)
+        public ActionResult<ItemDto> GetItem(Guid id)
         {
             Item ItemToReturn = ItemsRepository.GetItem(id);
 
@@ -40,7 +42,7 @@ namespace Catalog.Controllers
                 return NotFound();
             }
 
-            return ItemsRepository.GetItem(id);
+            return ItemToReturn.AsDto();
         }
     }
 }
