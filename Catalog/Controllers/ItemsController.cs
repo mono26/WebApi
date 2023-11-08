@@ -30,7 +30,7 @@ namespace Catalog.Controllers
         /// <summary>
         /// GET api/items/{id}.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Id of the item.</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         public ActionResult<ItemDto> GetItem(Guid id)
@@ -43,6 +43,54 @@ namespace Catalog.Controllers
             }
 
             return ItemToReturn.AsDto();
+        }
+
+        /// <summary>
+        /// POST api/items
+        /// </summary>
+        /// <param name="itemDto">Item data.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<ItemDto> CreateItem(CreateItemDto itemDto)
+        {
+            Item Item = new Item()
+            {
+                Id = Guid.NewGuid(),
+                Name = itemDto.Name,
+                Price = itemDto.Price,
+                CreatedDate = DateTimeOffset.Now
+            };
+
+            ItemsRepository.CreateItem(Item);
+
+            return CreatedAtAction(nameof(GetItem), new { id = Item.Id }, Item.AsDto());
+        }
+
+        /// <summary>
+        /// PUT api/items/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="itemDto"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public ActionResult UpdateItem(Guid id, UpdateItemDto itemDto)
+        {
+            Item ExistingItem = ItemsRepository.GetItem(id);
+
+            if (ExistingItem is null)
+            {
+                return NotFound();
+            }
+
+            Item UpdatedItem = ExistingItem with
+            {
+                Name = itemDto.Name,
+                Price = itemDto.Price
+            };
+
+            ItemsRepository.UpdateItem(UpdatedItem);
+
+            return NoContent();
         }
     }
 }
