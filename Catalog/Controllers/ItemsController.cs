@@ -70,7 +70,7 @@ namespace Catalog.Controllers
         /// PUT api/items/{id}
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="itemDto"></param>
+        /// <param name="itemDto">Item data.</param>
         /// <returns></returns>
         [HttpPut("{id}")]
         public ActionResult UpdateItem(Guid id, UpdateItemDto itemDto)
@@ -89,6 +89,26 @@ namespace Catalog.Controllers
             };
 
             ItemsRepository.UpdateItem(UpdatedItem);
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// DELETE api/items/{id}
+        /// </summary>
+        /// <param name="id">Item id</param>
+        /// <returns></returns>
+        [HttpDelete]
+        public ActionResult DeleteItem(Guid id)
+        {
+            Item ExistingItem = ItemsRepository.GetItem(id);
+
+            if (ExistingItem is null)
+            {
+                return NotFound();
+            }
+
+            ItemsRepository.DeleteItem(id);
 
             return NoContent();
         }

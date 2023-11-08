@@ -16,9 +16,9 @@ namespace Catalog.Repositories
             return Items;
         }
 
-        public Item GetItem(Guid Id)
+        public Item GetItem(Guid id)
         {
-            return Items.Where((Item) => Item.Id == Id).SingleOrDefault();
+            return Items.Where((Item) => Item.Id == id).SingleOrDefault();
         }
 
         public void CreateItem(Item item)
@@ -30,6 +30,12 @@ namespace Catalog.Repositories
         {
             int index = Items.FindIndex((existingItem) => existingItem.Id == item.Id);
             Items[index] = item;
+        }
+
+        public void DeleteItem(Guid id)
+        {
+            int index = Items.FindIndex((existingItem) => existingItem.Id == id);
+            Items.RemoveAt(index);
         }
     }
 }
