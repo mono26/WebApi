@@ -31,3 +31,16 @@ C:\Mono\Projects\Personal\web_api\Catalog\obj\Debug\net7.0\refint\Catalog.dll
 C:\Mono\Projects\Personal\web_api\Catalog\obj\Debug\net7.0\Catalog.pdb
 C:\Mono\Projects\Personal\web_api\Catalog\obj\Debug\net7.0\Catalog.genruntimeconfig.cache
 C:\Mono\Projects\Personal\web_api\Catalog\obj\Debug\net7.0\ref\Catalog.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\AWSSDK.Core.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\AWSSDK.SecurityToken.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\DnsClient.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\MongoDB.Bson.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\MongoDB.Driver.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\MongoDB.Driver.Core.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\MongoDB.Libmongocrypt.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\SharpCompress.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\Snappier.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\ZstdSharp.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\runtimes\linux\native\libmongocrypt.so
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\runtimes\osx\native\libmongocrypt.dylib
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\runtimes\win\native\mongocrypt.dll

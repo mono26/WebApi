@@ -98,7 +98,7 @@ namespace Catalog.Controllers
         /// </summary>
         /// <param name="id">Item id</param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult DeleteItem(Guid id)
         {
             Item ExistingItem = ItemsRepository.GetItem(id);
