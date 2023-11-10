@@ -1,4 +1,3 @@
-using System.Data.Common;
 using Catalog.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -19,32 +18,32 @@ namespace Catalog.Repositories
             ItemsCollection = Database.GetCollection<Item>(COLLECTION_NAME);
         }
 
-        public void CreateItem(Item item)
+        public async Task CreateItemAsync(Item item)
         {
-            ItemsCollection.InsertOne(item);
+            await ItemsCollection.InsertOneAsync(item);
         }
 
-        public void DeleteItem(Guid id)
-        {
-            FilterDefinition<Item> Filter = FilterBuilder.Eq((item) => item.Id, id);
-            ItemsCollection.DeleteOne(Filter);
-        }
-
-        public Item GetItem(Guid id)
+        public async Task DeleteItemAsync(Guid id)
         {
             FilterDefinition<Item> Filter = FilterBuilder.Eq((item) => item.Id, id);
-            return ItemsCollection.Find(Filter).SingleOrDefault();
+            await ItemsCollection.DeleteOneAsync(Filter);
         }
 
-        public IEnumerable<Item> GetItems()
+        public async Task<Item> GetItemAsync(Guid id)
         {
-            return ItemsCollection.Find(new BsonDocument()).ToList();
+            FilterDefinition<Item> Filter = FilterBuilder.Eq((item) => item.Id, id);
+            return await ItemsCollection.Find(Filter).SingleOrDefaultAsync();
         }
 
-        public void UpdateItem(Item item)
+        public async Task<IEnumerable<Item>> GetItemsAsync()
+        {
+            return await ItemsCollection.Find(new BsonDocument()).ToListAsync();
+        }
+
+        public async Task UpdateItemAsync(Item item)
         {
             FilterDefinition<Item> Filter = FilterBuilder.Eq((existingItem) => existingItem.Id, item.Id);
-            ItemsCollection.ReplaceOne(Filter, item);
+            await ItemsCollection.ReplaceOneAsync(Filter, item);
         }
     }
 }

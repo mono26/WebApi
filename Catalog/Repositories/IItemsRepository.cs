@@ -4,10 +4,10 @@ namespace Catalog.Repositories
 {
     public interface IItemsRepository
     {
-        public IEnumerable<Item> GetItems();
-        public Item GetItem(Guid id);
-        public void CreateItem(Item item);
-        void UpdateItem(Item item);
-        void DeleteItem(Guid id);
+        public Task<IEnumerable<Item>> GetItemsAsync();
+        public Task<Item> GetItemAsync(Guid id);
+        public Task CreateItemAsync(Item item);
+        public Task UpdateItemAsync(Item item);
+        public Task DeleteItemAsync(Guid id);
     }
 }
