@@ -16,26 +16,26 @@ namespace Catalog.Repositories
             return await Task.FromResult(Items);
         }
 
-        public async Task<Item> GetItem(Guid id)
+        public async Task<Item> GetItemAsync(Guid id)
         {
             Item ExistingItem = Items.Where((Item) => Item.Id == id).SingleOrDefault();
             return await Task.FromResult(ExistingItem);
         }
 
-        public async Task CreateItem(Item item)
+        public async Task CreateItemAsync(Item item)
         {
             Items.Add(item);
             await Task.CompletedTask;
         }
 
-        public async Task UpdateItem(Item item)
+        public async Task UpdateItemAsync(Item item)
         {
             int index = Items.FindIndex((existingItem) => existingItem.Id == item.Id);
             Items[index] = item;
             await Task.CompletedTask;
         }
 
-        public async Task DeleteItem(Guid id)
+        public async Task DeleteItemAsync(Guid id)
         {
             int index = Items.FindIndex((existingItem) => existingItem.Id == id);
             Items.RemoveAt(index);

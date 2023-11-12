@@ -44,3 +44,8 @@ C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\ZstdSharp.dll
 C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\runtimes\linux\native\libmongocrypt.so
 C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\runtimes\osx\native\libmongocrypt.dylib
 C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\runtimes\win\native\mongocrypt.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\HealthChecks.MongoDb.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\Microsoft.Extensions.Diagnostics.HealthChecks.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Mono\Projects\Personal\web_api\Catalog\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
