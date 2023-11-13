@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace Catalog.Repositories
 {
-    public class MongoDBItemsRepository : IItemsRepository
+    public class MongoDbItemsRepository : IItemsRepository
     {
         private const string DB_NAME = "catalog";
         private const string COLLECTION_NAME = "items";
@@ -12,7 +12,7 @@ namespace Catalog.Repositories
         private readonly IMongoCollection<Item> ItemsCollection;
         private readonly FilterDefinitionBuilder<Item> FilterBuilder = Builders<Item>.Filter;
 
-        public MongoDBItemsRepository(IMongoClient mongoClient)
+        public MongoDbItemsRepository(IMongoClient mongoClient)
         {
             IMongoDatabase Database = mongoClient.GetDatabase(DB_NAME);
             ItemsCollection = Database.GetCollection<Item>(COLLECTION_NAME);

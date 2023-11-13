@@ -1,5 +1,9 @@
+using System;
+using System.Net.Mime;
+using System.Text.Json;
 using Catalog.Repositories;
 using Catalog.Settings;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
@@ -15,14 +19,14 @@ internal class Program
         BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
         BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 
-        MongoDBSettings MongoDBSettings = builder.Configuration.GetSection(nameof(MongoDBSettings)).Get<MongoDBSettings>();
+        MongoDbSettings MongoDBSettings = builder.Configuration.GetSection(nameof(MongoDBSettings)).Get<MongoDbSettings>();
 
         // Add services to the container.
         builder.Services.AddSingleton<IMongoClient>((serviceProvider) =>
         {
             return new MongoClient(MongoDBSettings.ConnectionString);
         });
-        builder.Services.AddSingleton<IItemsRepository, MongoDBItemsRepository>();
+        builder.Services.AddSingleton<IItemsRepository, MongoDbItemsRepository>();
 
         // Tell the controllers to not suppress the Async suffix from function names.
         builder.Services.AddControllers((options) =>
@@ -34,7 +38,14 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddHealthChecks().AddMongoDb(MongoDBSettings.ConnectionString, name: "monogodb", timeout: TimeSpan.FromSeconds(3));
+        // Add health checks to the api. Also add a health check for the connection to the db.
+        builder.Services.AddHealthChecks()
+            .AddMongoDb(
+                MongoDBSettings.ConnectionString,
+                name: "monogodb",
+                timeout:
+                TimeSpan.FromSeconds(3),
+                tags: new string[] { "ready" });
 
         WebApplication app = builder.Build();
 
@@ -50,7 +61,32 @@ internal class Program
         app.UseAuthorization();
 
         app.MapControllers();
-        app.MapHealthChecks("/api/health");
+
+        app.MapHealthChecks("/api/health/ready", new HealthCheckOptions()
+        {
+            Predicate = (check) => check.Tags.Contains("ready"),
+            ResponseWriter = async (context, report) =>
+            {
+                string result = JsonSerializer.Serialize(new
+                {
+                    status = report.Status.ToString(),
+                    checks = report.Entries.Select((entry) => new
+                    {
+                        name = entry.Key,
+                        status = entry.Value.Status.ToString(),
+                        exception = entry.Value.Exception != null ? entry.Value.Exception.Message : "none",
+                        duration = entry.Value.Duration.ToString()
+                    })
+                });
+
+                context.Response.ContentType = MediaTypeNames.Application.Json;
+                await context.Response.WriteAsync(result);
+            }
+        });
+        app.MapHealthChecks("/api/health/live", new HealthCheckOptions()
+        {
+            Predicate = (_) => false
+        });
 
         app.Run();
     }
