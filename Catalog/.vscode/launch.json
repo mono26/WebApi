@@ -6,16 +6,16 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/bin/Debug/net7.0/Catalog.dll",
+            "program": "${workspaceRoot}/Catalog.Api/bin/Debug/net7.0/Catalog.Api.dll",
             "args": [],
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/Catalog.Api",
             "externalConsole": false,
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/Views": "${workspaceFolder}/Catalog.Api/Views"
             }
         },
         {
@@ -30,7 +30,7 @@
             "request": "launch",
             "preLaunchTask": "docker-run: debug",
             "netCore": {
-                "appProject": "${workspaceFolder}/Catalog.csproj"
+                "appProject": "${workspaceFolder}/Catalog.Api/Catalog.Api.csproj"
             }
         }
     ]
